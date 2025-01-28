@@ -5,9 +5,9 @@
 ```sh
 cd ./tb_CONV
 make run
+```
 
 Để mô phỏng IP PRNG: 
-
 ```sh
 cd ./PRNG
 make run
