@@ -93,7 +93,7 @@ module CONV #(
 	    	,.wr_inc        ( 1'b1                      )
 	    	,.wr_en         ( wr_en[fifo_i]             )
 	    	,.rd_en         ( rd_en[fifo_i]             )
-	    	,.data_in_fifo  ( row_sum[fifo_i]         )
+	    	,.data_in_fifo  ( row_sum[KERNEL_SIZE - 1 - fifo_i]         )
 	    	,.data_out_fifo ( psum[fifo_i][KERNEL_SIZE+1]         ) // psum[0][0] , psum[1][0], psum[2][0]
 	    	);
     end
@@ -110,7 +110,7 @@ module CONV #(
         ,.rd_en         ( rd_en[KERNEL_SIZE-1]             )
         ,.re_buffer     ( re_buffer                        )
         ,.psum_buffer   ( psum_buffer                      )
-        ,.data_in_fifo  ( psum[KERNEL_SIZE-1][KERNEL_SIZE] )
+        ,.data_in_fifo  ( psum[0][KERNEL_SIZE] )
         ,.data_out_fifo ( data_output_temp                 )
 		);
   

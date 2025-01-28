@@ -81,7 +81,7 @@ end
   reg [31:0] ifm_cnt;
   reg ifm_read_reg;
 initial begin
-    $readmemb("ifm_bin_c3xh64xw64.txt", ifm_in);
+    $readmemb("./script/ifm_bin_c3xh64xw64.txt", ifm_in);
 end
 
 always @(posedge clk2 or negedge rst_n)
@@ -108,7 +108,7 @@ always @(posedge clk2 or negedge rst_n)
   reg [31:0] wgt_cnt;
   reg wgt_read_reg;
   initial begin
-    $readmemb("weight_bin_co8xci3xk3xk3.txt", wgt_in);
+    $readmemb("./script/weight_bin_ci3xco2xk3xk3.txt", wgt_in);
   end
 
   always @(posedge clk2 or negedge rst_n)
