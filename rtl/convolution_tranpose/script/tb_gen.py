@@ -4,13 +4,13 @@ import numpy as np
 
 # Thông số đầu vào
 ic = 3   # Số kênh đầu vào
-ih = 64  # Chiều cao đầu vào
-iw = 64  # Chiều rộng đầu vào
+ih = 14  # Chiều cao đầu vào
+iw = 14  # Chiều rộng đầu vào
 
 # Thông số đầu ra
 oc = 2  # Số kênh đầu ra
-oh = 66  # Chiều cao đầu ra
-ow = 66  # Chiều rộng đầu ra
+oh = 16  # Chiều cao đầu ra
+ow = 16  # Chiều rộng đầu ra
 
 # Kích thước kernel
 kk = 3

@@ -37,8 +37,10 @@ module FIFO_ASYNCH #(parameter DATA_WIDTH = 16, FIFO_SIZE = 10, ADD_WIDTH = 3) (
   end
 
   always @(posedge clk2) begin
-  	if(rd_clr)
+		if(rd_clr) begin
   	  rd_ptr <= 0;
+		  data_read <= 0;
+		end
   	else if(rd_en) begin
 	 		data_read <= fifo_data[rd_ptr];
 			rd_ptr    <= rd_ptr + rd_inc   ;

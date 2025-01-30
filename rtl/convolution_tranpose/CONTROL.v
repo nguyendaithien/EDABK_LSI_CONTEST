@@ -67,9 +67,9 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
 			end
       COMPUTE:
       begin
-        if (cnt_index == IFM_SIZE+KERNEL_SIZE-1)
+        if (cnt_index == IFM_SIZE+KERNEL_SIZE)
         begin
-          if (cnt_line < IFM_SIZE)
+          if (cnt_line < IFM_SIZE+KERNEL_SIZE)
             next_state = END_ROW;
           else
           begin
@@ -108,15 +108,19 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
     for (ii = 0; ii < KERNEL_SIZE; ii = ii + 1) begin
       always @(posedge clk1) begin
         rd_en[ii] <=    ((|cnt_filter)               &&              
-	               	((cnt_line >= 2 && cnt_line <= (IFM_SIZE-KERNEL_SIZE+ii+2) && ((cnt_line-ii-2)%STRIDE == 0))  ) &&
-	       	        (|cnt_index && cnt_index <= IFM_SIZE + KERNEL_SIZE && ((cnt_index-1)%STRIDE == 0))                   ) ? 1 : 0;
+	               	((cnt_line >= 2 && cnt_line <= (IFM_SIZE-KERNEL_SIZE+ii+4) && ((cnt_line-ii-2)%STRIDE == 0))  ) &&
+	       	        (|cnt_index && cnt_index <= IFM_SIZE + KERNEL_SIZE-1 && ((cnt_index-1)%STRIDE == 0))                   ) ? 1 : 0;
 
 
     //    wr_en[ii] <= ((next_state != END_CONV) && (|cnt_filter) && (cnt_line >= (ii+1) && cnt_line <= (IFM_SIZE-KERNEL_SIZE+ii+1) && ((cnt_line-ii-1)%STRIDE == 0)) && (cnt_index >= KERNEL_SIZE && ((cnt_index-KERNEL_SIZE)%STRIDE == 0)))? 1 : 0;
-        wr_en[ii] <= ((next_state != END_CONV) && (|cnt_filter) && (cnt_line >= 1 && cnt_line <= (IFM_SIZE-KERNEL_SIZE+ii+1) && ((cnt_line-ii-1)%STRIDE == 0)) && (cnt_index >= 1 && ((cnt_index-KERNEL_SIZE)%STRIDE == 0)))? 1 : 0;
       end
     end
   endgenerate
+      always @(posedge clk1) begin
+        wr_en[0] <= ((next_state != END_CONV) && (|cnt_filter) && (cnt_line >= 1 && cnt_line <= (IFM_SIZE-KERNEL_SIZE+0+1+2) && ((cnt_line-0-1)%STRIDE == 0)) && (cnt_index >= 1 && ((cnt_index-KERNEL_SIZE+1)%STRIDE == 0)))? 1 : 0;
+        wr_en[1] <= ((next_state != END_CONV) && (|cnt_filter) && (cnt_line >= 1 && cnt_line <= (IFM_SIZE-KERNEL_SIZE+1+1+2) && ((cnt_line-1-1)%STRIDE == 0)) && (cnt_index >= 2 && ((cnt_index-KERNEL_SIZE+1)%STRIDE == 0)))? 1 : 0;
+        wr_en[2] <= ((next_state != END_CONV) && (|cnt_filter) && (cnt_line >= 1 && cnt_line <= (IFM_SIZE-KERNEL_SIZE+2+1+2) && ((cnt_line-2-1)%STRIDE == 0)) && (cnt_index >= 2 && ((cnt_index-KERNEL_SIZE+1)%STRIDE == 0)))? 1 : 0;
+			end
 
   always @(posedge clk1 or negedge rst_n)
   begin
@@ -129,6 +133,7 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
       set_reg     <= 0;
       set_wgt     <= 0;
       end_reg     <= 0;
+      rd_clr      <= 0;
       rd_clr_reg      <= 0;
       wr_clr      <= 0;
       set_ifm     <= 0;
@@ -145,7 +150,8 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
           cnt_filter  <= 0;
           set_reg     <= 0;
           set_wgt     <= 0;
-          rd_clr_reg      <= 0;
+          rd_clr      <= 0;
+      		rd_clr_reg      <= 0;
           wr_clr      <= 0;
           set_ifm     <= 0;
           end_reg     <= (cnt_index == IFM_SIZE-KERNEL_SIZE+3) ? 1 : 0;
@@ -163,15 +169,16 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
           cnt_channel <= (|cnt_index == 1'b0 && |cnt_line == 1'b0)? cnt_channel + 1:cnt_channel;
           cnt_filter  <= (|cnt_index == 1'b0 && |cnt_line == 1'b0 && |cnt_channel == 1'b0)? cnt_filter + 1:cnt_filter;
           set_reg     <= 1;
-          rd_clr_reg  <= 0;
 					rd_clr      <= rd_clr_reg;
+      		rd_clr_reg      <= 0;
           wr_clr      <= (cnt_index == 1) ? 1 : 0;
-          set_ifm     <= 1;
+          set_ifm     <= (cnt_line <= IFM_SIZE) ? 1 : 0 ;
         end
         END_ROW:
         begin
           cnt_index   <= 0;
-          rd_clr_reg      <= 1;
+          //rd_clr      <= 1;
+      		rd_clr_reg      <= 1;
           wr_clr      <= 0;
           set_wgt     <= set_wgt << 1;
           set_ifm     <= 0;
@@ -180,7 +187,7 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
         begin
           cnt_index   <= 0;
           cnt_line    <= 0;
-          rd_clr_reg      <= 1;
+          rd_clr      <= 1;
           set_ifm     <= 0;
         end
         END_FILTER:
@@ -188,7 +195,7 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
           cnt_index   <= 0;
           cnt_line    <= 0;
           cnt_channel <= 0;
-          rd_clr_reg      <= 1;
+          rd_clr      <= 1;
           set_ifm     <= 0;
         end
         END_CONV:
@@ -200,7 +207,6 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
           set_reg     <= 0;
           set_wgt     <= 0;
           set_ifm     <= 0;
-          rd_clr_reg      <= 0;
           wr_clr      <= 0;
         end
         default:
@@ -214,7 +220,6 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
           set_wgt     <= set_wgt;
           end_reg     <= end_reg;
           wr_clr      <= wr_clr;
-          rd_clr_reg      <= rd_clr_reg;
         end
       endcase
     end
@@ -228,7 +233,7 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
       end_conv  <= 0;
     end
     else begin
-      if (POOLING || (cnt_channel == CI && cnt_line > KERNEL_SIZE) || (cnt_channel == 1 && cnt_line == 1))
+      if (POOLING || (cnt_channel == CI && cnt_line > 1) || (cnt_channel == 1 && cnt_line == 1))
         out_valid <= rd_en[KERNEL_SIZE-1];
       else
         out_valid <= 0;
@@ -236,7 +241,7 @@ module CONTROL #(parameter KERNEL_SIZE = 4, IFM_SIZE = 9, PAD = 2, STRIDE = 2, C
     end
   end
 
-  assign re_buffer = ((cnt_channel > 1 && cnt_line >= KERNEL_SIZE) || (cnt_line == 0 && cnt_channel != 1)) ? wr_en[KERNEL_SIZE-1] : 0;
+  assign re_buffer = ((cnt_channel > 1 && cnt_line >= 0) || (cnt_line == 0 && cnt_channel != 1)) ? wr_en[KERNEL_SIZE-1] : 0;
   assign ifm_read = ((cnt_line > PAD && cnt_line <= IFM_SIZE-PAD) && (cnt_index > PAD && cnt_index <= IFM_SIZE-PAD)) ? 1 : 0;
   assign wgt_read = (|set_wgt) ? 1 : 0;
 

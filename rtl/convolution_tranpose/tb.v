@@ -2,15 +2,15 @@ module tb() ;
   parameter DATA_WIDTH = 16;
   parameter WEIGHT_WIDTH = 8;
   parameter IFM_WIDTH = 8;
-  parameter IFM_SIZE = 64;
+  parameter IFM_SIZE = 14;
   // Convolution 1
   parameter KERNEL_SIZE = 3;
   parameter STRIDE = 1;
   parameter PAD = 0;
   parameter RELU = 1;
   parameter CI = 3;
-  parameter CO = 32;
-	parameter OUT_FEATURE = 66*66*32; 
+  parameter CO = 2;
+	parameter OUT_FEATURE = 16*16*2; 
 
 
 	reg clk1;
@@ -45,14 +45,14 @@ CONV #(
     .DATA_WIDTH(16), 
     .WEIGHT_WIDTH(8), 
     .IFM_WIDTH(8),  
-    .IFM_SIZE(64), 
+    .IFM_SIZE(14), 
     .KERNEL_SIZE(KERNEL_SIZE),
     .STRIDE(1),
     .PAD(0),
     .RELU(1),
     .FIFO_SIZE((IFM_SIZE-1) + KERNEL_SIZE),
     .CI(3), 
-    .CO(8)
+    .CO(2)
 ) cov (
 	.clk1       (clk1       ),
 	.clk2       (clk2       ),
@@ -81,7 +81,7 @@ end
   reg [31:0] ifm_cnt;
   reg ifm_read_reg;
 initial begin
-    $readmemb("./script/ifm_bin_c3xh64xw64.txt", ifm_in);
+    $readmemb("./script/ifm_bin_c3xh14xw14.txt", ifm_in);
 end
 
 always @(posedge clk2 or negedge rst_n)

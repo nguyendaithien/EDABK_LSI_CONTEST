@@ -3,7 +3,7 @@ module tb() ;
   parameter WEIGHT_WIDTH = 8;
   parameter IFM_WIDTH = 8;
   parameter IFM_SIZE = 64;
-  // Convolution 1
+  // Convolution 
   parameter KERNEL_SIZE = 3;
   parameter STRIDE = 1;
   parameter PAD = 0;
@@ -11,11 +11,9 @@ module tb() ;
   parameter CI = 3;
   parameter CO = 8;
   parameter PADDING_SIZE = 0;
-	parameter OUT_FEATURE = 62*62*32; 
-  parameter STRIDE_SIZE = 1;
-	parameter OFM_SIZE = ((IFM_SIZE + 2*PADDING_SIZE - KERNEL_SIZE) / STRIDE_SIZE) + 1  ;
+	parameter OUT_FEATURE = OFM_SIZE*OFM_SIZE*CO; 
+	parameter OFM_SIZE = ((IFM_SIZE + 2*PADDING_SIZE - KERNEL_SIZE) / STRIDE) + 1  ;
 	parameter TOTAL_ELEMENTS = OFM_SIZE*OFM_SIZE*CO;
-
 
 	reg clk1;
 	reg clk2;
@@ -143,6 +141,7 @@ always @(posedge clk2 or negedge rst_n)
 
   assign wgt = (wgt_read_reg == 1) ? wgt_in[wgt_cnt-1] : 0;
 
+	// task read output
   task read_output;
     input [DATA_WIDTH-1:0] data_output;
     input out_valid;
