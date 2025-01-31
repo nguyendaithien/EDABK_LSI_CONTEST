@@ -74,6 +74,46 @@ make run
 ```
 If the simulation is successful, the screen will display as follows: 
 ```sh
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    1
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    2
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    3
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    4
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    5
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    6
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    7
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
+ Computing channel:             1
+ Computing channel:             2
+ Computing channel:             3
+ End filter:                    8
+ \\\\\\\\\\\\\\\\\\\\\\\\\\
 ██████╗  █████╗ ███████╗███████╗    ████████╗███████╗███████╗████████╗                                                                               
 ██╔══██╗██╔══██╗██╔════╝██╔════╝    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝                                                                               
 ██████╔╝███████║███████╗███████╗       ██║   █████╗  ███████    ██║
