@@ -1,8 +1,8 @@
 # Convolutional VAE Computing Unit
 This is a simple CVAE Computing design for the FPGA project.
 Authors:\
-NguyenVan Luu: nluu1784@gmail.com \
-NguyenThuy Linh: linhlinh@gmail.com
+Nguyen Van Luu: nluu1784@gmail.com \
+Nguyen Thi Thuy Linh: linhlinh@gmail.com
 
 ## Design requirements
 Detailed requirements are under `./Document/CVAE.pdf`, the following lists some main requests:
@@ -42,7 +42,7 @@ The verification framework evaluates the Convolutional Variational Autoencoder (
 First, you need to run the Python script to generate the input feature map, weights, and golden output in integer format.
 If you want to modify the parameters of the convolutional layer, update the following parameters in the file:
 ```sh
-cd ./script
+cd ./rtl/tb_CONV/script
 Open file script.py
 ```
 ```sh
@@ -69,7 +69,7 @@ parameter IFM_SIZE : IFM size
 RTL Simulation 
 
 ```sh
-cd ./rtl/tb_CONV
+cd ./rtl/tb_CONV/run
 make run
 ```
 If the simulation is successful, the screen will display as follows: 
