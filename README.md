@@ -135,7 +135,7 @@ The two random numbers generated depend on the initial **SEED** value set in the
 
 ### Convolution Tranpose module
 ```sh
-cd ./rtl/tb_conv_tranpose
+cd ./rtl/tb_conv_tranpose/run
 make run
 ```
 To change the input size parameters, please follow the instructions as provided in the Convolution IP.
