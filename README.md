@@ -11,7 +11,7 @@ Detailed requirements are under `./Document/CVAE.pdf`, the following lists some 
 * Tool: Iveirilog and Gtkwave(if you need), to install it let run the command below:
 ```sh
 sudo apt-get install iverilog
-sudo apt install gtkwave 
+sudo apt-get install gtkwave 
 ```
 * If you use other EDA tools like Cadence or Synopsys, please rewrite your makefile to fit the tool as usual because we do not use any other special frameworks.
 
