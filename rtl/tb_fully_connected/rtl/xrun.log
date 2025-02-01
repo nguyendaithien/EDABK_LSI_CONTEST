@@ -1,0 +1,39 @@
+xrun: 23.09-s001: (c) Copyright 1995-2023 Cadence Design Systems, Inc.
+TOOL:	xrun	23.09-s001: Started on Jun 01, 2024 at 00:14:15 +07
+xrun
+	ADDER.v
+	FIFO_ASYNCH.v
+	PE.v
+	REGISTER.v
+	TOP.v
+	-access +rwc
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Top level design units:
+		ADDER
+		FIFO_ASYNCH
+		TOP
+	Building instance overlay tables: .................... Done
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		              Instances  Unique
+		Modules:             19       5
+		Registers:           31      10
+		Scalar wires:        18       -
+		Vectored wires:      55       -
+		Always blocks:       28       7
+		Cont. assignments:    9      11
+		Pseudo assignments:   8       -
+		Process Clocks:      10       3
+	Writing initial simulation snapshot: worklib.ADDER:v
+
+Trying to check out license...
+	Xcelium_Limited_Single_Core 23.00 - Failed
+	Xcelium_Single_Core 23.00 - Failed
+	Xcelium_Safety_Sim 23.00 - Failed
+	Xcelium_Safety 23.00 - Failed
+	Xcelium_Multi_Core 23.00 - Failed
+	Xcelium_For_Partners 23.00 - Failed
+xmsim: *F,NOLICN: Unable to checkout license for the simulation. 'lic_error LMF-03005'.
+TOOL:	xrun	23.09-s001: Exiting on Jun 01, 2024 at 00:15:46 +07  (total: 00:01:31)
