@@ -5,7 +5,7 @@ Nguyen Van Luu: nluu1784@gmail.com \
 Nguyen Thi Thuy Linh: linhlinh@gmail.com
 
 ## Design requirements
-Detailed requirements are under `./Document/CVAE.pdf`, the following lists some main requests:
+Detailed requirements are under `./Document/EDABK_LSI_CONTEST_2025.pdf`, the following lists some main requests:
 * Programming Language: Python >= 3.8
 * Frameworks & Libraries: PyTorch >= 1.10 (for neural network operations), NumPy >= 1.21 (for numerical computations)
 * Tool: Iveirilog and Gtkwave(if you need), to install it let run the command below:
