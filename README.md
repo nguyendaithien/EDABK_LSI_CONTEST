@@ -91,8 +91,13 @@ The architecture of initial phase in Pseudo Random Number
 Generator(PRNG).
 ![PRNG_initial](https://github.com/user-attachments/assets/8d218ec4-8bbc-4dd2-8c4c-6f4b0f76fcb1)
 
+**Fully Connectd Layer Architecture:**
 ![FC_architec](https://github.com/user-attachments/assets/57902ff8-05f0-4b1c-a073-217f784ade18)
+
+**Convolutional Tranpose Architecture:**
 ![conv_tranpose](https://github.com/user-attachments/assets/9699eb1c-1b38-481e-95af-b4473a3c8a03)
+
+**Gaussian Random Number Generator Architecture:**
 ![GNRG](https://github.com/user-attachments/assets/d6756b16-9ea3-4a0f-af7f-6c2500951c4d)
 
 ## Usage
