@@ -21,7 +21,7 @@ The verification framework evaluates the Convolutional Variational Autoencoder (
    - Input data is randomly generated using **PyTorch**, ensuring diverse test cases.  
    - This input data is then used to stimulate both the **Device Under Test (DUT)** and the reference model.  
 
-2. **Execution in Two Environments**  
+2. **Execution in Two Environments**
    - **DUT (Convolutional VAE IP in hardware)**: The input data is fed into the hardware IP, where computations are performed to produce the **RTL Output**.  
    - **Reference Model (Golden Model - PyTorch)**: The same input data is also processed by the PyTorch-based Convolutional VAE model, generating the **Golden Output**.  
 
@@ -65,7 +65,10 @@ parameter CO : output channel
 parameter PADDING_SIZE : padding size
 parameter IFM_SIZE : IFM size
 ```
-
+After config parameter for layer, please create again stimulus:
+```sh
+python3 script.py
+```
 RTL Simulation 
 
 ```sh
@@ -154,6 +157,60 @@ If the simulation is successful, the screen will display as follows:
  \\\\\\\\\\\\\
  End filter    2
  END CONVOLUTION TRANPOSE
+██████╗  █████╗ ███████╗███████╗    ████████╗███████╗███████╗████████╗                                                                               
+██╔══██╗██╔══██╗██╔════╝██╔════╝    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝                                                                               
+██████╔╝███████║███████╗███████╗       ██║   █████╗  ███████    ██║
+██║     ██║  ██║╚════██║╚════██║       ██║   ██║          ██║   ██║  
+██║     ██║  ██║███████║███████║       ██║   ███████╗███████╗   ██║                                          
+╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝
+```
+### Fully Connected Layers
+First, you need to run the Python script to generate the input feature map, weights, and golden output in integer format.
+If you want to modify the parameters of the convolutional layer, update the following parameters in the file:
+```sh
+cd ./rtl/tb_fully_connected/script
+python3 script.py
+```
+
+RTL Simulation 
+
+```sh
+cd ./rtl/tb_fully_connected/run
+make run
+```
+If the simulation is successful, the screen will display as follows: 
+```sh
+COMPUTING TILING          1
+COMPUTING TILING          2
+COMPUTING TILING          3
+COMPUTING TILING          4
+COMPUTING TILING          5
+COMPUTING TILING          6
+COMPUTING TILING          7
+COMPUTING TILING          8
+COMPUTING TILING          9
+COMPUTING TILING         10
+COMPUTING TILING         11
+COMPUTING TILING         12
+COMPUTING TILING         13
+COMPUTING TILING         14
+COMPUTING TILING         15
+COMPUTING TILING         16
+COMPUTING TILING         17
+COMPUTING TILING         18
+COMPUTING TILING         19
+COMPUTING TILING         20
+COMPUTING TILING         21
+..........................
+..........................
+COMPUTING TILING         58
+COMPUTING TILING         59
+COMPUTING TILING         60
+COMPUTING TILING         61
+COMPUTING TILING         62
+COMPUTING TILING         63
+COMPUTING TILING         64
+COMPUTING TILING         65
 ██████╗  █████╗ ███████╗███████╗    ████████╗███████╗███████╗████████╗                                                                               
 ██╔══██╗██╔══██╗██╔════╝██╔════╝    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝                                                                               
 ██████╔╝███████║███████╗███████╗       ██║   █████╗  ███████    ██║
