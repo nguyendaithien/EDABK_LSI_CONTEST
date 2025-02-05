@@ -1,6 +1,6 @@
 run:
 	iverilog ../rtl/*.v -o compile
 	vvp compile
-gtk:
+wave:
 	gtkwave *.VCD
 

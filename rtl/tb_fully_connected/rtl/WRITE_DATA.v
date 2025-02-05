@@ -11,7 +11,7 @@ module WRITE_DATA #(parameter DATA_WIDTH = 16, TILING_SIZE = 8) (
 input clk;
 input rst_n;
 input [2:0] state;
-input [15:0] counter_tiling;
+input [31:0] counter_tiling;
 output reg valid_data;
 output reg [DATA_WIDTH-1:0] data_output;
 output reg [3:0] sel_data;
@@ -36,14 +36,13 @@ output reg [3:0] sel_data;
 	always @(state or current_state or sel_data or counter_tiling) begin
 		case(current_state)
 			3'd0: begin 
-			  if(state == 3'd4 && counter_tiling > 16'd1)
+			  if(state == 3'd4 && counter_tiling > 32'd1)
 					next_state = WRITE_DATA;
 				else
 					next_state = IDLE;
 				end
-	//		3'd1: next_state = WRITE_DATA;
 			3'd2: begin
-				if(sel_data == TILING_SIZE )
+				if(sel_data == TILING_SIZE)
 					next_state = IDLE;
 				else 
 					next_state = WRITE_DATA;
@@ -63,10 +62,6 @@ output reg [3:0] sel_data;
 		  		valid_data <= 0;
 					sel_data   <= 0;
 				end
-		//		WAIT_WRITE: begin
-		//  		valid_data <= 1;
-		//			sel_data   <= 0;
-    //    end
 				WRITE_DATA: begin
 		  		valid_data <= 1;
 					sel_data   <= (sel_data == TILING_SIZE +1) ? 0 : sel_data + 1;
