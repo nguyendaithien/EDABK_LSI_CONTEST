@@ -1,4 +1,4 @@
--# Convolutional VAE Computing Unit
+# Convolutional VAE Computing Unit
 This is a simple CVAE Computing design for the FPGA project.
 Authors:\
 Nguyen Van Luu: nluu1784@gmail.com \
