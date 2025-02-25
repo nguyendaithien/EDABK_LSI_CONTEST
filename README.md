@@ -219,40 +219,8 @@ COMPUTING TILING         65
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝
 ```
 ## Main Contributions
-1. **Convolutional architecture**
-   
-Figure below illustrates the block diagram of the architecture
-and memory hierarchy of the convolutional accelerator, which
-includes a PE array, global buffer, controller block and ReLU
-activation function. This block is responsible for convolution
-operations, max pooling, ReLU, and fully connected layers.
-The weights, biases, and input feature maps are stored in off-
-chip DRAM and are read into the accelerator via buffers to
-reduce latency when accessing off-chip memory. The memory
-hierarchy consists of three types: off-chip DRAM, a global
-buffer (FIFO buffer), and registers within each PE.
-To optimize performance, the
-key contributions of this work are:
 
-**(1)** A data flow called weight stationary base on spartial
-architecture is employed, where weights are kept fixed
-within an array of Processing Elements (PEs).
-
-**(2)** The utilization of hierarchical memory structure and
-FIFO asynchronous on-chip buffer reduces the off-chip
-memory access and reuse data.
-
-![Picture3](https://github.com/user-attachments/assets/9fc63779-2c18-4fa0-bc20-b662990924c2)
-This architecture reduces the energy required for weight
-reads, maximizes convolutional operations, and enables efficient reuse of the filter.
-
-• Filter reuse: Each filter weight is reused E x F times
-within one input feature map (ifm) channel.
-
-• IFM reuse: Each input feature map (ifm) is reused R x
-S times.
-
-2. **Sampling Layer-reparameterization trick**
+1. **Sampling Layer-reparameterization trick**
    
 The figure below shows the hardware architecture of the Gaussian
 sampling layer. This layer starts with a **SEED** value that is input
@@ -272,12 +240,6 @@ twisting recurrently.
 The architecture of initial phase in Pseudo Random Number
 Generator(PRNG).
 ![PRNG_initial](https://github.com/user-attachments/assets/8d218ec4-8bbc-4dd2-8c4c-6f4b0f76fcb1)
-
-**Fully Connectd Layer Architecture:**
-![FC_architec](https://github.com/user-attachments/assets/57902ff8-05f0-4b1c-a073-217f784ade18)
-
-**Convolutional Tranpose Architecture:**
-![conv_tranpose](https://github.com/user-attachments/assets/9699eb1c-1b38-481e-95af-b4473a3c8a03)
 
 **Gaussian Random Number Generator Architecture:**
 ![GNRG](https://github.com/user-attachments/assets/d6756b16-9ea3-4a0f-af7f-6c2500951c4d)
